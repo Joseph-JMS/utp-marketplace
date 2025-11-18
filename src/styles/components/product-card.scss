@@ -1,0 +1,55 @@
+@use "../variables" as *;
+
+.product-card {
+  @include transition(all 0.3s);
+  @include box-shadow(0 4px 6px rgba(0,0,0,0.1));
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+
+  img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    @include transition(transform 0.3s);
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    @include box-shadow(0 12px 20px rgba(0,0,0,0.3));
+
+    img {
+      transform: scale(1.05);
+    }
+
+    .btn {
+      transform: scale(1.05);
+    }
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-text {
+    flex-grow: 1;
+    font-size: 0.9rem;
+    color: $secondary-color;
+  }
+
+  .btn {
+    @include transition(all 0.2s);
+    &:hover {
+      transform: scale(1.05);
+      background-color: $accent-color;
+      border-color: $accent-color;
+    }
+  }
+}

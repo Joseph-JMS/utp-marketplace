@@ -1,0 +1,44 @@
+
+
+// Importar variables y estilos locales
+@use "variables" as *;
+@use "components/navbar" as *;
+@use "components/product-card" as *;
+@use "components/forms" as *;
+
+@import "bootstrap/dist/css/bootstrap.min.css"; 
+
+// Animaciones globales
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+// Ajustes responsive generales
+@media (max-width: $breakpoint-lg) {
+  .container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .display-4 {
+    font-size: 2rem;
+  }
+  .lead {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .navbar .navbar-nav {
+    text-align: center;
+  }
+  .card h5 {
+    font-size: 1rem;
+  }
+}
