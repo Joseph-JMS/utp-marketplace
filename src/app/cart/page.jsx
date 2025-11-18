@@ -47,7 +47,7 @@ export default function CartPage() {
           {cart.map(item => (
             <tr key={item.id}>
               <td>{item.title}</td>
-              <td>${item.price.toFixed(2)}</td>
+              <td>S/.{item.price.toFixed(2)}</td>
               <td>
                 <input
                   type="number"
@@ -58,7 +58,7 @@ export default function CartPage() {
                   style={{ width: "80px" }}
                 />
               </td>
-              <td>${(item.price * item.quantity).toFixed(2)}</td>
+              <td>S/.{(item.price * item.quantity).toFixed(2)}</td>
               <td>
                 <button
                   className="btn btn-danger btn-sm"
@@ -71,7 +71,7 @@ export default function CartPage() {
           ))}
         </tbody>
       </table>
-      <h4 className="mt-3">Total: ${total.toFixed(2)}</h4>
+      <h4 className="mt-3">Total: S/.{total.toFixed(2)}</h4>
       <Link href="/" className="btn btn-success mt-3">Seguir comprando</Link>
     </div>
   );
