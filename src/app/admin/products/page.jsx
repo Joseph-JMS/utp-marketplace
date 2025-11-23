@@ -11,6 +11,7 @@ export default function ProductsAdminPage() {
     stock: 1,
     image: "",
     category: "",
+    imageFile: null,
   });
   const [editingId, setEditingId] = useState(null);
 
@@ -30,15 +31,35 @@ export default function ProductsAdminPage() {
   const handleSubmit = async e => {
     e.preventDefault();
 
+    let imageUrl = form.image;
+
+    // Si cargaron archivo, subirlo a Cloudinary
+    if (form.imageFile) {
+      const fd = new FormData();
+      fd.append("file", form.imageFile);
+
+      const uploadRes = await fetch("/api/upload", {
+        method: "POST",
+        body: fd
+      });
+
+      const uploadData = await uploadRes.json();
+      imageUrl = uploadData.url;
+    }
+
     const url = editingId
       ? `/api/products/${editingId}`
       : "/api/products";
+
     const method = editingId ? "PUT" : "POST";
 
     await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({
+        ...form,
+        image: imageUrl,
+      }),
     });
 
     resetForm();
@@ -52,6 +73,7 @@ export default function ProductsAdminPage() {
       price: "",
       stock: 1,
       image: "",
+      imageFile: null,
       category: "",
     });
     setEditingId(null);
@@ -126,12 +148,10 @@ export default function ProductsAdminPage() {
           />
 
           <input
-            type="text"
-            name="image"
+            type="file"
             className="form-control"
-            placeholder="URL de imagen"
-            value={form.image}
-            onChange={handleInput}
+            accept="image/*"
+            onChange={(e) => setForm({ ...form, imageFile: e.target.files[0] })}
           />
 
           <input
