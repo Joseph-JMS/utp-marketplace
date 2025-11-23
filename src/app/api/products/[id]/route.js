@@ -29,42 +29,43 @@ export async function GET(request) {
 }
 
 // PUT /api/products/:id
-export async function PUT(request, { params }) {
-  const { id } = params;
-  const productId = parseInt(id, 10);
+export async function PUT(request) {
+  const url = new URL(request.url);
+  const id = url.pathname.split("/").pop();
+  const productId = parseInt(id);
 
-  if (!id || isNaN(productId)) {
+  if (isNaN(productId)) {
     return NextResponse.json({ error: "ID inválido" }, { status: 400 });
   }
 
-  const data = await request.json();
-
   try {
+    const data = await request.json();
     const updated = await prisma.product.update({
       where: { id: productId },
       data: {
         title: data.title,
         description: data.description,
-        price: data.price,
+        price: parseFloat(data.price),
+        stock: parseInt(data.stock) || 1,
         image: data.image || "",
-        stock: data.stock || 1,
         category: data.category || null,
       },
     });
 
     return NextResponse.json(updated);
   } catch (error) {
-    console.error("Error al actualizar el producto:", error);
+    console.error(error);
     return NextResponse.json({ error: "Error al actualizar el producto" }, { status: 500 });
   }
 }
 
 // DELETE /api/products/:id
-export async function DELETE(request, { params }) {
-  const { id } = params;
-  const productId = parseInt(id, 10);
+export async function DELETE(request) {
+  const url = new URL(request.url);
+  const id = url.pathname.split("/").pop();
+  const productId = parseInt(id);
 
-  if (!id || isNaN(productId)) {
+  if (isNaN(productId)) {
     return NextResponse.json({ error: "ID inválido" }, { status: 400 });
   }
 
@@ -72,7 +73,7 @@ export async function DELETE(request, { params }) {
     await prisma.product.delete({ where: { id: productId } });
     return NextResponse.json({ message: "Producto eliminado" });
   } catch (error) {
-    console.error("Error al eliminar el producto:", error);
+    console.error(error);
     return NextResponse.json({ error: "Error al eliminar el producto" }, { status: 500 });
   }
 }

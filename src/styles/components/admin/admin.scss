@@ -1,0 +1,174 @@
+@use "../../variables" as *;
+
+// mixin transform con prefijos
+@mixin transform($value) {
+  -webkit-transform: $value;
+  -moz-transform: $value;
+  -ms-transform: $value;
+  transform: $value;
+}
+
+/* Animaciones */
+@-webkit-keyframes admin-slide-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes admin-slide-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@-webkit-keyframes admin-zoom-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes admin-zoom-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* General de admin */
+.admin-wrapper {
+  display: flex;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  @media (min-width: $breakpoint-lg) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  @media (min-width: $breakpoint-xl) {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
+  /* Pantalla grande - dos columnas */
+  @media (min-width: $breakpoint-xl) {
+    flex-direction: row;
+  }
+
+  /* Pantalla mediana o chica - una columna */
+  @media (min-width: 0) and (max-width: $breakpoint-xl) {
+    flex-direction: column;
+  }
+
+  /* Formulario reg o edit */
+  .admin-form {
+    flex: 1;
+    min-width: 320px;
+    background: $bg-light;
+    padding: 1.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.75rem;
+    @include box-shadow(0 5px 16px rgba(0,0,0,0.08));
+
+    animation: admin-slide-up 420ms ease both;
+
+    form {
+      display: grid;
+      gap: 0.7rem;
+
+      input, textarea, select {
+        border-radius: 0.5rem;
+        border: 1px solid rgba(0,0,0,0.15);
+        padding: 0.6rem;
+        @include transition(border-color 0.2s, box-shadow 0.2s);
+
+        &:focus {
+          border-color: $primary-color;
+          box-shadow: 0 0 6px rgba(13,110,253,0.25);
+        }
+      }
+
+      button {
+        margin-top: 0.4rem;
+        @include transform(scale(1));
+        @include transition(all .25s);
+
+        &:hover {
+          @include transform(scale(1.05));
+          box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+        }
+      }
+    }
+  }
+
+  /* Tabla lista productos */
+  .admin-table-card {
+    flex: 2;
+    
+    background: white;
+    padding: 1.2rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.75rem;
+    
+    @include box-shadow(0 8px 26px rgba(0,0,0,0.06));
+
+    animation: admin-zoom-in 420ms ease both;
+
+    .admin-search-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+
+      input {
+        flex: 1;
+        border-radius: 0.5rem;
+      }
+    }
+
+    .modulo-table {
+        overflow-x: auto; // permite scroll horizontal
+        -webkit-overflow-scrolling: touch;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+
+            thead {
+                background: linear-gradient(90deg, rgba($primary-color,0.95), rgba($primary-color,0.85));
+                color: #fff;
+
+                th {
+                padding: 0.75rem;
+                font-weight: 600;
+                }
+            }
+
+            tbody tr {
+                @include transition(background 0.25s, transform 0.25s);
+
+                &:hover {
+                background: rgba(13,110,253,0.04);
+                @include transform(translateY(-3px));
+                }
+
+                td {
+                padding: 0.7rem;
+                }
+
+                .thumb {
+                width: 64px;
+                height: 48px;
+                object-fit: cover;
+                border-radius: 6px;
+                @include box-shadow(0 4px 12px rgba(0,0,0,0.08));
+                }
+
+                .actions .btn {
+                margin-right: 0.35rem;
+                @include transition(all .2s);
+
+                &:hover {
+                    @include transform(scale(1.08));
+                }
+                }
+            }
+        }
+    }
+  }
+}

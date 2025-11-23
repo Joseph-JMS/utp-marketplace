@@ -6,6 +6,7 @@ export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
+    import("bootstrap/dist/js/bootstrap.bundle.min.js");
     const stored = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartCount(stored.length);
   }, []);

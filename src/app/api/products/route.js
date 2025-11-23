@@ -16,14 +16,17 @@ export async function POST(request) {
     const data = await request.json();
     const newProduct = await prisma.product.create({
       data: {
-        name: data.title,
+        title: data.title,
         description: data.description,
-        price: data.price,
+        price: parseFloat(data.price),
+        stock: parseInt(data.stock) || 1,
         image: data.image || "",
+        category: data.category || null,
       },
     });
     return NextResponse.json(newProduct);
   } catch (error) {
-    return NextResponse.error();
+    console.error(error);
+    return NextResponse.json({ error: "Error al crear producto" }, { status: 500 });
   }
 }
