@@ -1,11 +1,10 @@
-
-
 // Importar variables y estilos locales
 @use "variables" as *;
 @use "components/navbar" as *;
 @use "components/product-card" as *;
 @use "components/forms" as *;
 @use "components/admin/admin" as *;
+@use "components/home" as *;
 
 @import "bootstrap/dist/css/bootstrap.min.css"; 
 

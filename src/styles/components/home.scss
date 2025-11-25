@@ -1,0 +1,62 @@
+@use "../variables" as *;
+.home-full {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  min-height: 100%;
+}
+
+.hover-effect {
+  @include transition(all 0.3s ease);
+  @include border-radius(12px);
+
+  &:hover {
+    @include transform(translateY(-8px));
+    @include box-shadow(0 10px 25px rgba(0, 0, 0, 0.2));
+    border-color: $primary-color;
+  }
+
+  h5 {
+    font-weight: bold;
+  }
+}
+
+.section-zoom {
+  animation: zoomIn 0.6s ease forwards;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    @include transform(scale(0.9));
+  }
+  to {
+    opacity: 1;
+    @include transform(scale(1));
+  }
+}
+
+.home-btn {
+  @include transition(background-color 0.25s ease, transform 0.25s ease);
+    background-color: $primary-color;
+  &:hover {
+    @include transform(scale(1.05));
+    background-color: $primary-color;
+    color: $accent-color;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .hover-effect {
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .hover-effect {
+    @include transform(scale(1));
+  }
+  .section-zoom {
+    animation: zoomIn 0.4s ease;
+  }
+}

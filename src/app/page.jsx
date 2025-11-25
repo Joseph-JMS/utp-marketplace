@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="container my-5 fade-in">
+    <div className="container home-full fade-in section-zoom">
       <div className="text-center mb-5">
         <h1 className="display-4">Bienvenido a UTP Marketplace</h1>
         <p className="lead">Compra, vende e intercambia productos y servicios dentro de la comunidad universitaria</p>
-        <Link href="/products" className="btn btn-primary btn-lg mt-3">
+        <Link href="/products" className="btn btn-primary btn-lg mt-3 home-btn">
           Ver Productos
         </Link>
       </div>
