@@ -23,6 +23,13 @@ $font-size-base: 1rem;
   transition: $props;
 }
 
+@mixin transform($value) {
+  -webkit-transform: $value;
+  -moz-transform: $value;
+  -ms-transform: $value;
+  transform: $value;
+}
+
 @mixin box-shadow($shadow...) {
   -webkit-box-shadow: $shadow;
   -moz-box-shadow: $shadow;
