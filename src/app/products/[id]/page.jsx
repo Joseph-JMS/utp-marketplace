@@ -1,19 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useCartStore } from "@/store/cartStore";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const addToCart = useCartStore(state => state.addToCart);
 
   useEffect(() => {
-    console.log("Fetching product id:", id, "typeof id:", typeof id);
     fetch(`/api/products/${id}`)
       .then(res => res.json())
-      .then(data => {
-        console.log("Product data:", data);
-        setProduct(data);
-      });
+      .then(data => setProduct(data))
+      .catch(err => console.error(err));
   }, [id]);
 
   if (!product) return <p>Cargando...</p>;
@@ -31,18 +30,19 @@ export default function ProductDetail() {
         <div className="col-md-6">
           <h2>{product.title}</h2>
           <p className="text-secondary">{product.description}</p>
-          <h4 className="text-primary">S/.{product.price}</h4>
-          <button className="btn btn-success mt-3" onClick={() => addToCart(product)}>Agregar al carrito</button>
+          <h4 className="text-primary">S/.{product.price.toFixed(2)}</h4>
+
+          <button
+            className="btn btn-success mt-3"
+            onClick={() => {
+              addToCart({ ...product, quantity: 1 });
+              alert("Producto agregado al carrito");
+            }}
+          >
+            Agregar al carrito
+          </button>
         </div>
       </div>
     </div>
   );
-}
-
-// Función simple para carrito en localStorage
-function addToCart(product) {
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  cart.push(product);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Producto agregado al carrito");
 }
