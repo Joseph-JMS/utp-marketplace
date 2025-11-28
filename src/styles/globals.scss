@@ -6,7 +6,8 @@
 @use "components/admin/admin" as *;
 @use "components/home" as *;
 
-@import "bootstrap/dist/css/bootstrap.min.css"; 
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
 
 // Animaciones globales
 @keyframes fadeIn {

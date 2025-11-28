@@ -10,14 +10,18 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
+    "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
     "cloudinary": "^2.8.0",
     "mysql2": "^3.15.3",
     "next": "16.0.3",
+    "next-auth": "^4.24.13",
     "prisma": "^6.19.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "sass": "^1.94.0"
+    "sass": "^1.94.0",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "eslint": "^9",
