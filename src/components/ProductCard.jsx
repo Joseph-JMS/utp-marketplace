@@ -6,7 +6,7 @@ export default function ProductCard({ product }) {
   const addToCart = useCartStore(state => state.addToCart);
 
   return (
-    <div className="card h-100 shadow-sm product-card">
+    <div className="card h-100 border rounded shadow-sm product-card bg-light">
       <img
         src={product.image || "/placeholder.png"}
         className="card-img-top"
